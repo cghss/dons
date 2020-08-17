@@ -1,6 +1,6 @@
 # The World Health Organization Disease Outbreak News
 
-Currently curated by Colin Carlson, Yasser Omar
+Currently maintained by Colin Carlson, Yasser Omar
 
 # Citation
 
