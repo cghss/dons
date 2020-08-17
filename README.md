@@ -1,4 +1,4 @@
-# Updated data management and processing of the WHO Disease Outbreak News
+# The World Health Organization Disease Outbreak News
 
 Currently curated by Colin Carlson, Yasser Omar
 
