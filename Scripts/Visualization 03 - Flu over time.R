@@ -1,7 +1,7 @@
 
-library(tidyverse); library(magrittr)
+library(tidyverse); library(magrittr); library(lubridate)
 
-dons <- read_csv("~/Github/dons/Data/DON-1.2.0002.csv")
+dons <- read_csv("~/Github/dons/Data/DONdatabase.csv")
 
 library(extrafont)
 loadfonts(device = "win", quiet = TRUE)
@@ -16,6 +16,7 @@ hxnx <- data.frame(
 
 
 dons %>% filter(DiseaseLevel1 == 'Influenza A') %>%
+  mutate(YearEvent = year(mdy(ReportDate))) %>%
   select(DiseaseLevel2,YearEvent) %>%
   mutate(DiseaseLevel2 = str_replace(DiseaseLevel2, ": S-OtrH3N2", "")) %>% 
   na.omit() %>%

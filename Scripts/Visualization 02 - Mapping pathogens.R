@@ -7,7 +7,7 @@ library(rworldmap)
 library(ggthemr)
 library(LaCroixColoR)
 
-dons <- read_csv("~/Github/dons/Data/DON-1.2.0002.csv")
+dons <- read_csv("~/Github/dons/Data/DONdatabase.csv")
 
 key <- c("JAP" = "JPN", "XKO" = "XKX")
 dons %<>% mutate(ISO = recode(ISO, !!!key))
@@ -15,7 +15,7 @@ dons %<>% mutate(ISO = recode(ISO, !!!key))
 dons %>%
   count(ISO, DiseaseLevel1) %>%
 #  mutate(n = (n>0)) %>%
-  mutate(n = log(n+1)) %>%
+  mutate(n = sqrt(n)) %>%
   complete(ISO, DiseaseLevel1, fill = list(n = 0)) %>% 
   pivot_wider(names_from = DiseaseLevel1, values_from = n) %>%
   na.omit() -> df
@@ -39,7 +39,7 @@ sPDF <- joinCountryData2Map(df,
 cols <- c(lacroix_palettes$Pamplemousse[1,1:3],
           lacroix_palettes$PeachPear[1,3],
           lacroix_palettes$Pamplemousse[1,4:6])
-spplot(sPDF, 'cluster', col.regions = cols)
+spplot(sPDF, 'cluster', col.regions = rev(cols))
 
 ################
 
