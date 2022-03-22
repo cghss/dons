@@ -1,7 +1,8 @@
 
-library(tidyverse); library(magrittr)
-dons <- read_csv("~/Github/dons/Data/DON-1.2.0002.csv")
+library(tidyverse); library(magrittr); library(lubridate)
+dons <- read_csv("~/Github/dons/Data/DONdatabase.csv")
 
+dons %<>% mutate(YearEvent = year(mdy(ReportDate)))
 dons %<>% mutate(DiseaseLevel1 = str_replace(DiseaseLevel1, "Crimean-Congo haemorrhagic fever", "CCHF"))
 dons %>% count(DiseaseLevel1) %>% top_n(25) %>% pull(DiseaseLevel1) -> top20
 dons %<>% filter(DiseaseLevel1 %in% top20)
@@ -18,6 +19,7 @@ df %>% ggplot(aes(x = YearEvent, y = n, fill = DiseaseLevel1)) +
   geom_area() + 
   xlab("") + ylab("Proportion of reports (%)") + 
   theme_bw() + 
+  xlim(1995, 2021) + 
   theme(legend.position = 'none',
         axis.text.x = element_text(angle = 90, vjust = 0.5),
         axis.title.y = element_text(size = 14, vjust = 6),
@@ -27,8 +29,9 @@ df %>% ggplot(aes(x = YearEvent, y = n, fill = DiseaseLevel1)) +
 ####################################
 
 library(tidyverse); library(magrittr)
-dons <- read_csv("~/Github/dons/Data/DON-1.2.0002.csv")
+dons <- read_csv("~/Github/dons/Data/DONdatabase.csv")
 
+dons %<>% mutate(YearEvent = year(mdy(ReportDate)))
 dons %>% count(DiseaseLevel1) %>% top_n(4) %>% pull(DiseaseLevel1) -> top20
 dons %>% pull(DiseaseLevel1) %>% unique -> all
 all <- all[!(all %in% top20)]
