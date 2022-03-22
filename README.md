@@ -1,5 +1,5 @@
-# The World Health Organization Disease Outbreak News
+[![DOI](https://zenodo.org/badge/288244197.svg)](https://zenodo.org/badge/latestdoi/288244197)
 
-Carlson et al. The World Health Organization’s Disease Outbreak News: a retrospective database. 
+### The World Health Organization Disease Outbreak News
 
-Cite this repository: [![DOI](https://zenodo.org/badge/288244197.svg)](https://zenodo.org/badge/latestdoi/288244197)
+Carlson et al. The World Health Organization’s Disease Outbreak News: a retrospective database.  Preprint forthcoming.
