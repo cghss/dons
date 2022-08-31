@@ -31,33 +31,37 @@ df$cluster <- k$cluster
 df$cluster <- as.factor(df$cluster)
 df %<>% select(ISO, cluster)
 
-# Attach that all to the map
-sPDF <- joinCountryData2Map(df,
-                            joinCode = "ISO3",
-                            nameJoinColumn = "ISO")
+countries <- rnaturalearth::ne_countries()
+countries %<>% st_as_sf() %>% 
+  left_join(df, by = c("iso_a3" = "ISO")) %>% 
+  as_Spatial()
+
+# # Attach that all to the map
+# sPDF <- joinCountryData2Map(df,
+#                             joinCode = "ISO3",
+#                             nameJoinColumn = "ISO")
 
 cols <- c(lacroix_palettes$Pamplemousse[1,1:3],
           lacroix_palettes$PeachPear[1,3],
           lacroix_palettes$Pamplemousse[1,4:6])
-spplot(sPDF, 'cluster', col.regions = rev(cols))
+spplot(countries, 'cluster', col.regions = rev(cols))
 
 ################
-
 
 dons %>%
   count(ISO) -> df
 
 library(viridisLite)
 
-# Attach that all to the map
-sPDF <- joinCountryData2Map(df,
-                            joinCode = "ISO3",
-                            nameJoinColumn = "ISO")
+countries <- rnaturalearth::ne_countries()
+countries %<>% st_as_sf() %>% 
+  left_join(df, by = c("iso_a3" = "ISO")) %>% 
+  as_Spatial()
 
 cols <- c(lacroix_palettes$Pamplemousse[1,1:3],
           lacroix_palettes$PeachPear[1,3],
           lacroix_palettes$Pamplemousse[1,4:6])
-spplot(sPDF, 'n', col.regions = viridisLite::mako(16, direction = -1))
+spplot(countries, 'n', col.regions = viridisLite::mako(16, direction = -1))
 
 
 
